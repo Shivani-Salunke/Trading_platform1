@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>High-End Trading Platform</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+  <body>
+    <!-- App Shell -->
+    <div id="app-container">
+      <!-- Sidebar -->
+      <aside id="sidebar" class="glass-panel">
+        <div class="logo">
+          <span class="material-icons">trending_up</span>
+          <h2>ApexTrade</h2>
+        </div>
+        <nav class="nav-links">
+          <a href="#" class="nav-link active" data-view="dashboard">
+            <span class="material-icons">dashboard</span>
+            <span>Dashboard</span>
+          </a>
+          <a href="#" class="nav-link" data-view="markets">
+            <span class="material-icons">candlestick_chart</span>
+            <span>Markets</span>
+          </a>
+          <a href="#" class="nav-link" data-view="portfolio">
+            <span class="material-icons">account_balance_wallet</span>
+            <span>Portfolio</span>
+          </a>
+          <a href="#" class="nav-link" data-view="watchlist">
+            <span class="material-icons">visibility</span>
+            <span>Watchlist</span>
+          </a>
+          <a href="#" class="nav-link" data-view="orders">
+            <span class="material-icons">list_alt</span>
+            <span>Orders</span>
+          </a>
+        </nav>
+        <div class="bottom-nav">
+          <a href="#" class="nav-link" data-view="settings">
+            <span class="material-icons">settings</span>
+            <span>Settings</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <div id="main-content">
+        <!-- Top Navbar -->
+        <header id="top-navbar">
+          <div class="breadcrumb" id="breadcrumb">Dashboard</div>
+          <div class="search-bar">
+            <span class="material-icons search-icon">search</span>
+            <input type="text" placeholder="Search stocks, ETFs, crypto... (Ctrl+K)" />
+          </div>
+          <div class="user-actions">
+            <button class="icon-btn"><span class="material-icons">notifications</span></button>
+            <div class="user-profile">
+              <img src="https://ui-avatars.com/api/?name=Us&background=00C853&color=fff" alt="User" />
+            </div>
+          </div>
+        </header>
+
+        <!-- Dynamic Views Container -->
+        <main id="view-container">
+          <!-- Views will be injected here via JS -->
+        </main>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

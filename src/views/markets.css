@@ -1,0 +1,147 @@
+.markets-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  background-color: var(--bg-surface);
+  padding: 6px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.tab {
+  background: transparent;
+  color: var(--text-secondary);
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: var(--text-primary);
+}
+
+.tab.active {
+  background-color: var(--bg-surface-hover);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.markets-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 280px;
+}
+
+.markets-search input {
+  width: 100%;
+  padding: 10px 16px 10px 40px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.markets-search input:focus {
+  border-color: var(--accent-brand);
+  box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.15);
+}
+
+.markets-search .search-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--text-tertiary);
+  font-size: 20px;
+}
+
+.markets-list {
+  padding: 0; /* Remove padding for flush table */
+  overflow: hidden;
+}
+
+.interactive-table th {
+  padding: 16px 24px;
+  background-color: rgba(255, 255, 255, 0.02);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 11px;
+}
+
+.interactive-table td {
+  padding: 16px 24px;
+}
+
+.interactive-table tr {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.interactive-table tr:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.asset-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.asset-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--bg-surface-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.symbol {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.name {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.price-cell {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* Row Action Hover Effect */
+.interactive-table .row-actions {
+  opacity: 0;
+  transform: translateX(10px);
+  transition: all 0.2s;
+}
+
+.interactive-table tr:hover .row-actions {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.buy-btn {
+  padding: 6px 16px;
+  font-size: 12px;
+}

@@ -1,0 +1,23 @@
+# Exclude source control files
+.git
+.gitignore
+
+# Exclude dependencies
+node_modules/
+
+# Exclude configuration files
+package.json
+package-lock.json
+
+# Exclude build output
+dist/
+
+# Exclude Docker related files
+Dockerfile
+.dockerignore
+.github/
+README.md
+
+# Exclude local environment files
+.env
+.env.*
