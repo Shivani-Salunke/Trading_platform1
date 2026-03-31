@@ -7,6 +7,11 @@ export const MARKET_DATA = [
   { symbol: 'MSFT', name: 'Microsoft', price: 405.12, change: '+0.8%', up: true, volume: '22.1M', cap: '$3.0T' },
   { symbol: 'AMZN', name: 'Amazon.com', price: 175.00, change: '-0.3%', up: false, volume: '30.5M', cap: '$1.8T' },
   { symbol: 'META', name: 'Meta Platforms', price: 485.12, change: '+3.2%', up: true, volume: '18.5M', cap: '$1.2T' },
+  { symbol: 'GOOGL', name: 'Alphabet Inc.', price: 152.45, change: '+1.2%', up: true, volume: '25.3M', cap: '$1.9T' },
+  { symbol: 'ADBE', name: 'Adobe Inc.', price: 585.10, change: '-0.5%', up: false, volume: '4.8M', cap: '$265B' },
+  { symbol: 'CRM', name: 'Salesforce', price: 298.30, change: '+2.1%', up: true, volume: '8.2M', cap: '$290B' },
+  { symbol: 'BTC', name: 'Bitcoin', price: 68420.50, change: '+4.5%', up: true, volume: '35.1B', cap: '$1.3T' },
+  { symbol: 'ETH', name: 'Ethereum', price: 3450.20, change: '+2.8%', up: true, volume: '15.4B', cap: '$415B' },
   { symbol: 'AMD', name: 'Advanced Micro Devices', price: 178.40, change: '+2.8%', up: true, volume: '55.1M', cap: '$285B' },
   { symbol: 'NFLX', name: 'Netflix Inc', price: 605.20, change: '+1.5%', up: true, volume: '6.2M', cap: '$260B' },
   { symbol: 'LVMH', name: 'LVMH', price: 820.50, change: '+1.1%', up: true, volume: '1.2M', cap: '$410B' }

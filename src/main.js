@@ -12,7 +12,8 @@ import { renderOrders } from './views/orders.js';
 import { renderSettings } from './views/settings.js';
 import { renderLogin } from './views/login.js';
 import { renderRegister } from './views/register.js';
-import { store } from './store.js';
+import { store, getAsset } from './store.js';
+import { toast } from './toast.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   store.startMarketSimulation();
@@ -100,6 +101,34 @@ document.addEventListener('DOMContentLoaded', () => {
       if (view) navigateTo(view);
     });
   });
+
+  // Search Functionality
+  const searchInput = document.querySelector('.search-bar input');
+  if (searchInput) {
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const query = searchInput.value.trim().toUpperCase();
+        if (query) {
+          const asset = getAsset(query);
+          if (asset) {
+            navigateTo('stock-detail', { symbol: asset.symbol });
+            searchInput.value = '';
+            searchInput.blur();
+          } else {
+            toast.show(`No asset found with symbol "${query}"`, 'error');
+          }
+        }
+      }
+    });
+
+    // Ctrl+K Shortcut
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+  }
 
   // Initial load
   navigateTo('dashboard');

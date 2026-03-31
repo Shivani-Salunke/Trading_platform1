@@ -1,3 +1,64 @@
 .orders-main-card {
   margin-top: var(--spacing-lg);
+  padding: 0;
+  overflow: hidden;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.data-table th {
+  padding: 16px 24px;
+  color: var(--text-tertiary);
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.data-table td {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 14px;
+}
+
+.interactive-table tr {
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.interactive-table tr:hover {
+  background-color: var(--bg-surface-hover);
+}
+
+.interactive-table tr:last-child td {
+  border-bottom: none;
+}
+
+.status-completed {
+  background-color: var(--color-profit-bg);
+  color: var(--color-profit);
+}
+
+.status-pending {
+  background-color: rgba(255, 193, 7, 0.15);
+  color: #FFC107;
+}
+
+.badge {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  align-items: center;
+  justify-content: center;
 }
