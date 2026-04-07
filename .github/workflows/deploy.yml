@@ -1,46 +1,72 @@
-name: Deploy to Amazon App Runner
+name: Deploy to AWS EC2
 
 on:
   push:
     branches: [ "main" ]
 
-env:
-  AWS_REGION: us-east-1                   # Change if needed
-  ECR_REPOSITORY: trading-platform
-  SERVICE_NAME: trading-platform-service
-
 jobs:
-  deploy:
-    name: Build and Push to ECR
+  build-and-deploy:
+    name: Build, Dockerize & Deploy to EC2
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
+    # 1. Checkout code
+    - name: Checkout Repository
       uses: actions/checkout@v3
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
+    # 2. Set up Node.js and build Vite project
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
+        node-version: '20'
 
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
+    - name: Install Dependencies
+      run: npm install
 
-    - name: Build, tag, and push image to Amazon ECR
-      id: build-image
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+    - name: Build Vite App
+      run: npm run build
 
-    # NOTE: You will need to manually create the App Runner service first
-    # pointing to the 'latest' tag in your ECR repo.
-    # Subsequent pushes to 'latest' will trigger auto-deployment if configured.
+    # 3. Build Docker image
+    - name: Build Docker Image
+      run: docker build -t trading-platform:latest .
+
+    # 4. Save Docker image as tarball
+    - name: Save Docker Image to TAR
+      run: docker save trading-platform:latest | gzip > trading-platform.tar.gz
+
+    # 5. Copy image to EC2 via SCP
+    - name: Copy Image to EC2
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ec2-user
+        key: ${{ secrets.EC2_SSH_KEY }}
+        source: "trading-platform.tar.gz"
+        target: "/home/ec2-user/"
+
+    # 6. SSH into EC2 and deploy the container
+    - name: Deploy on EC2
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ec2-user
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          # Load the Docker image
+          docker load < /home/ec2-user/trading-platform.tar.gz
+
+          # Stop and remove any existing container
+          docker stop trading-platform || true
+          docker rm trading-platform || true
+
+          # Run the new container
+          docker run -d \
+            --name trading-platform \
+            --restart unless-stopped \
+            -p 80:80 \
+            trading-platform:latest
+
+          # Clean up tarball
+          rm -f /home/ec2-user/trading-platform.tar.gz
+
+          echo "✅ Deployment successful! App running at http://${{ secrets.EC2_HOST }}"
